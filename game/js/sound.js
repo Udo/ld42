@@ -63,15 +63,26 @@ var Sound = {
   
   currentPiece : false,
   
-  fadeAll : function() {
-    each(Sound.music1, function(m) {
+  fade : function(nextTrack) {
+    if(Sound.loadingCount > 0) {
+      Sound.deferred = function() {
+        Sound.fade(nextTrack);
+        };
+      return;
+    }
+    each(Sound.music, function(m) {
       if(m.playing())
         m.fade(m.volume(), 0, 2000);
     });
+    if(nextTrack) setTimeout(function() {
+      var track = Sound.music[nextTrack];
+      track.play();
+      track.volume(0.45);
+      }, 2500);
   },
   
   stopAll : function() {
-    each(Sound.music1, function(m) {
+    each(Sound.music, function(m) {
       if(m.playing())
         m.stop();
     });
@@ -110,6 +121,8 @@ var Sound = {
     });
   },
   
+  
+  
   init : function() {
     Sound.load('fx-activate.ogg', 'activate', 'fx');
     Sound.load('fx-boxmove.ogg', 'boxmove', 'fx', 0.5);
@@ -118,7 +131,14 @@ var Sound = {
     Sound.load('fx-win.ogg', 'win', 'fx', 0.5);
     Sound.load('fx-zap.ogg', 'zap', 'fx', 0.5);
 
+    Sound.load('track1.ogg', 'track1', 'music');
+    Sound.load('track2.ogg', 'track2', 'music');
+    Sound.load('track3.ogg', 'track3', 'music');
+    Sound.load('track4.ogg', 'track4', 'music');
+    Sound.load('track5.ogg', 'track5', 'music');
+
     return;
+    // meh, that didn't work
     Sound.load('Orchestral Kit_bip.ogg', 'perc1', 'music1');
     Sound.load('Quirky Moments_bip.ogg', 'perc2', 'music1');
     Sound.load('Wave Space_bip.ogg', 'perc3', 'music1');

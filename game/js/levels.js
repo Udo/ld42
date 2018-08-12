@@ -1,14 +1,16 @@
 var Levels = {
   
   l01 : {
+    name : '1',
     next : 'l02',
     map : [
       'P  B  .',
     ],
-    soundtrack : [1, 2, 3, 4, 12],
+    soundtrack : 'track1',
   },
   
   l02 : {
+    name : '2',
     next : 'l03',
     defaultTile : 's',
     map : [
@@ -18,10 +20,11 @@ var Levels = {
       '       ',
       '       ',
     ],
-    soundtrack : [1, 8, 0, 3, 2],
+    soundtrack : 'track2',
   },
 
   l03 : {
+    name : '3',
     next : 'l04',
     defaultTile : 's',
     map : [
@@ -31,10 +34,11 @@ var Levels = {
       '  uuu  ',
       '  uuu  ',
     ],
-    soundtrack : [3, 8, 10, 1, 9],
+    soundtrack : 'track3',
   },
 
   l04 : {
+    name : '4',
     next : 'l05',
     map : [
       '    X0000',
@@ -45,10 +49,11 @@ var Levels = {
       '.s       ',
       '.s       ',
     ],
-    soundtrack : [0, 11, 2, 8, 7],
+    soundtrack : 'track4',
   },
   
   l05 : {
+    name : '5',
     next : 'l06',
     map : [
       'X  XXXXXXX',
@@ -60,10 +65,11 @@ var Levels = {
       'X         ',
       'X  XXXXXXX',
     ],
-    soundtrack : [5, 1, 3, 0, 10],
+    soundtrack : 'track5',
   },
 
   l06 : {
+    name : '6',
     next : 'l07',
     map : [
       '   X     ',
@@ -74,10 +80,11 @@ var Levels = {
       '         ',
       '   X     ',
     ],
-    soundtrack : [3, 6, 0, 2, 4],
+    soundtrack : 'track1',
   },
 
   l07 : {
+    name : '7',
     next : 'l08',
     map : [
       '  B..B   ',
@@ -88,10 +95,11 @@ var Levels = {
       '  B..B   ',
       '         ',
     ],
-    soundtrack : [7, 9, 0, 11],
+    soundtrack : 'track2',
   },
 
   l08 : {
+    name : '8',
     next : 'l09',
     map : [
       '       CX',
@@ -103,10 +111,11 @@ var Levels = {
       ' B B B B ',
       '   . .   ',
     ],
-    soundtrack : [8, 0, 9, 10],
+    soundtrack : 'track3',
   },
 
   l09 : {
+    name : '9',
     next : 'l10',
     map : [
       'X  C X',
@@ -116,11 +125,12 @@ var Levels = {
       '   B  ',
       'X    X',
     ],
-    soundtrack : [10, 2, 1, 9, 4],
+    soundtrack : 'track4',
   },
 
   l10 : {
-    next : 'l10',
+    name : '10',
+    next : 'l11',
     map : [
       '                  ',
       '      P           ',
@@ -135,11 +145,38 @@ var Levels = {
       '                  ',
       '                  ',
     ],
-    soundtrack : [11, 12, 3, 6],
+    soundtrack : 'track5',
     onButton : function() {
       Game.do.cleanAllCreep();
     },
     later : [5, 9, 8, 12, 7],
+  },
+
+  l11 : {
+    name : '42',
+    next : 'l11',
+    map : [
+      '            ',
+      '            ',
+      '     P .    ',
+      '            ',
+      '            ',
+      '            ',
+    ],
+    onStart : function() {
+      Game.do.showAnnouncement('WELL DONE!', function() {
+        localStorage.setItem('current_level', 'l01');
+        Game.initLevel(Levels.l01);
+        });   
+      $('#announcement').html('<h1>BOX RESCUE: COMPLETE</h1>'+
+        '<div>THIS GAME WAS MADE IN 48 HOURS</div>'+
+        '<div>BY UDO SCHROETER</div>'+
+        '<div>FOR <a href="https://ldjam.com/events/ludum-dare/42/box-rescue">LUDUM DARE 42</a></div>'+
+        '<div></div>'+
+        '<div>I hope this was as fun to play as it was to make :)</div>');
+      Game.state.levelEnded = true;
+    },
+    soundtrack : 'track1',
   },
 
 };

@@ -92,8 +92,15 @@ var Game = {
   
   'do' : {
     
+    toggleMusic : function() {
+      Howler.muted = !Howler.muted;
+      Howler.mute(Howler.muted);
+      $('#music_toggle').css('color', Howler.muted ? '#888888' : '#ffff88');
+    },
+    
     updateStats : function() {
       Game.uiStepCounter.text(Game.state.stepCount);
+      Game.uiLevelName.text(Game.currentLevel.name);
       setTimeout(Game.do.updateStats, 300);
     },
     
@@ -179,7 +186,10 @@ var Game = {
         localStorage.setItem('current_level', Game.currentLevel.next);
         Game.initLevel(Levels[Game.currentLevel.next]);
         });   
-      $('#announcement').html('<h1></h1>');
+      $('#announcement').html('<h1 style="font-weight:normal">BOX RESCUE: ACHIEVED</h1>'+
+        '<div>LEVEL: '+Game.currentLevel.name+'</div>'+
+        '<div>MOVES: '+Game.state.stepCount+'</div><div>-</div>'+
+        '<div style="opacity:0.6">press any key to continue</div>');
       Game.state.levelEnded = true;
       Sound.fx.win.play();   
       Game.player.liftoff = true;   
@@ -640,9 +650,7 @@ var Game = {
     Stage.root.rotation.z = Math.PI * 1.08;
 
     if(l.soundtrack) {
-      Sound.fadeInPiece(l.soundtrack);
-    } else {
-      Sound.composePiece();
+      Sound.fade(l.soundtrack);
     }
 
     if(Game.grid)
@@ -678,6 +686,9 @@ var Game = {
       },
       
     });
+    
+    if(Game.currentLevel.onStart)
+      Game.currentLevel.onStart();
     
     console.log('new level init', Game.grid.cells.length);
     Game.state.running = true;
@@ -815,6 +826,7 @@ var Game = {
     Stage.overrideRender = Game.renderPasses;
     
     Game.uiStepCounter = $('#stepcount');
+    Game.uiLevelName = $('#levelname');
     
     Stage.loadTexture = function(fn, size) {
       if(!size)

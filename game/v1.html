@@ -44,6 +44,10 @@
   <body>
     
     <nav>
+      <div style="float:right;">
+        <a id="music_toggle" onclick="Game.do.toggleMusic();"><i class="fa fa-music"></i></a>
+        <a id="level_reset" onclick="Game.initLevel(Levels.l01);"><i class="fa fa-arrow-left"></i></a>
+      </div>
       BOX RESCUE | LD42
     </nav>
     
@@ -59,7 +63,14 @@
     </div>
     
     <div id="gamestats">
-      <div id="stepcount"></div>
+      <div>
+        LEVEL
+        <div id="levelname"></div>
+      </div>
+      <div>
+        <div id="stepcount"></div>
+        STEPS
+      </div>
     </div>
 
     <footer>

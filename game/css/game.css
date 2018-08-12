@@ -1,13 +1,13 @@
 @font-face {
   font-family: console;
-  src: url('../fonts/glass_tty_vt220.ttf');
+  src: url('../fonts/BITSUMIS.TTF');
 }
 
 * {
 	box-sizing: inherit;
 	text-shadow: inherit;
 	font-family: console;
-	font-size: 20px;
+	font-size: 24px;
 	transition: all 0.5s ease;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -127,10 +127,11 @@ button:hover {
 }
 
 #gamestats > div {
-  padding: 16px;
+  padding: 32px;
   background: rgba(0,0,0,0.75);
-  width: 64px;
+  width: 160px;
   text-align: center;
-  border-radius: 48px;
+  border-radius: 84px;
   border: 2px solid white;
+  margin-bottom: 16px;
 }
