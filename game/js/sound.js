@@ -4,7 +4,7 @@ var Sound = {
   
   byIndex : [],
   
-  load : function(f, iname, type, onload) {
+  load : function(f, iname, type, volume, onload) {
     Sound.loadingCount++;
     if(!Sound[type])
       Sound[type] = {};
@@ -13,7 +13,7 @@ var Sound = {
       autoplay : false,
       loop : false,
       onend : function() {
-        Sound.onend(Sound[type][iname]);
+        Sound.onend(Sound[type][iname], iname, type);
       },
       onload : function() {
         Sound.loadingCount--;
@@ -28,8 +28,11 @@ var Sound = {
       });
   },
   
-  onend : function(sound) {
-    
+  onend : function(sound, iname, type) {
+    if(type == 'music1') {
+      Sound.stopAll();
+      Sound.composePiece();
+    }
   },
   
   onloaded : function() {
@@ -51,6 +54,7 @@ var Sound = {
   },
   
   composePiece : function() {
+    return;
     var tracks = [];
     Sound.selectFromList('music1', 3+Math.round(2*Math.random()), tracks);
     console.log('COMPOSE tracks', tracks);
@@ -74,6 +78,7 @@ var Sound = {
   },
   
   fadeInPiece : function(desc) {    
+    return;
     if(Sound.loadingCount > 0) {
       Sound.deferred = function() {
         Sound.fadeInPiece(desc);
@@ -93,17 +98,27 @@ var Sound = {
   },
 
   startPiece : function(desc) {
+    return;
     var piece = { tracks : [] };
     console.log('SOUND STARTING', desc);
     each(desc, function(idx, k) {
+      if(k > 1) return;
       var track = Sound.byIndex[idx];
       piece.tracks.push(track);
       track.play();
-      track.volume(0.3-k*0.05);
+      track.volume(0.3/*-k*0.05*/);
     });
   },
   
   init : function() {
+    Sound.load('fx-activate.ogg', 'activate', 'fx');
+    Sound.load('fx-boxmove.ogg', 'boxmove', 'fx', 0.5);
+    Sound.load('fx-fail.ogg', 'fail', 'fx', 0.5);
+    Sound.load('fx-move.ogg', 'move', 'fx', 0.5);
+    Sound.load('fx-win.ogg', 'win', 'fx', 0.5);
+    Sound.load('fx-zap.ogg', 'zap', 'fx', 0.5);
+
+    return;
     Sound.load('Orchestral Kit_bip.ogg', 'perc1', 'music1');
     Sound.load('Quirky Moments_bip.ogg', 'perc2', 'music1');
     Sound.load('Wave Space_bip.ogg', 'perc3', 'music1');
@@ -117,6 +132,8 @@ var Sound = {
     Sound.load('Fluid Bass_bip.ogg', 'bass2', 'music1');
 
     Sound.load('Steinway Grand Piano_bip.ogg', 'bass3', 'music1');
+    Sound.load('Airship Rising.ogg', 'pad5', 'music1');
+    Sound.load('Bass Wave Cycles2.ogg', 'bass4', 'music1');
   },
   
 }

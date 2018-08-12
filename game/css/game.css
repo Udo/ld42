@@ -118,3 +118,19 @@ button:hover {
   text-align: center;
   font-size: 200%;
 }
+
+#gamestats {
+  position: absolute;
+  left: 48px;
+  top: 48px;
+  font-size: 200%;
+}
+
+#gamestats > div {
+  padding: 16px;
+  background: rgba(0,0,0,0.75);
+  width: 64px;
+  text-align: center;
+  border-radius: 48px;
+  border: 2px solid white;
+}

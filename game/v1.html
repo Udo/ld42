@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>HTML/Canvas/3D Game Starter</title>
+    <title>Box Rescue - LD42</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,9 +10,27 @@
     <link rel="stylesheet" href="css/hint.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <script src="lib/three.js"></script>
+    <script src="lib/three.roundedbox.js"></script>
     <script src="lib/jquery.min.js"></script>
     <script src="lib/howler.min.js"></script>
     <script src="lib/minibars.min.js"></script>
+    
+
+		<script src="js/postprocessing/EffectComposer.js"></script>
+		<script src="js/postprocessing/RenderPass.js"></script>
+		<script src="js/postprocessing/ShaderPass.js"></script>
+		<script src="js/postprocessing/MaskPass.js"></script>
+		<script src="js/postprocessing/SSAOPass.js"></script>    		
+    <script src="js/postprocessing/SSAARenderPass.js"></script>
+		<script src="js/postprocessing/TAARenderPass.js"></script>
+
+		<script src="js/shaders/SSAOShader.js"></script>
+		<script src="js/shaders/CopyShader.js"></script>
+		<script src="js/shaders/FXAAShader.js"></script>
+		<script src="js/shaders/ConvolutionShader.js"></script>
+		<script src="js/shaders/LuminosityHighPassShader.js"></script>
+		<script src="js/postprocessing/UnrealBloomPass.js"></script>
+        
     <script src="lib/u-pathastar.js"></script>
     <script src="lib/u-threestage.js"></script>
     <script src="lib/u-grid.js"></script>
@@ -26,7 +44,7 @@
   <body>
     
     <nav>
-      LD42
+      BOX RESCUE | LD42
     </nav>
     
     <div id="help">
@@ -38,6 +56,10 @@
       <div id="k_f"><div class="key">F</div><div class="explanation">Undo</div></div>
       <div id="k_r"><div class="key">R</div><div class="explanation">Reset</div></div>
     
+    </div>
+    
+    <div id="gamestats">
+      <div id="stepcount"></div>
     </div>
 
     <footer>
@@ -75,6 +97,7 @@
       $(document).on('keyup', Game.on.keyup);
       Sound.init();
       Game.init(Stage);
+      Game.do.updateStats();
     });
     </script>
     

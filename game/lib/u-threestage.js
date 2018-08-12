@@ -164,7 +164,10 @@ var ThreeStage = {
       	else if(!this.options.stopAnimation) {
       		const st = new Date().getTime();
       		this.animation.doAll((st - this.debug.animationTimestamp) / 1000);
-          this.renderer.render(this.root, this.camera);      
+          if(this.overrideRender)
+            this.overrideRender();
+          else
+            this.renderer.render(this.root, this.camera);      
       		const ct = new Date().getTime();
       		this.debug.frameInterval = 
       		  ((this.debug.frameInterval || 10)*0.97) + 

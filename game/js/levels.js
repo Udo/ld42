@@ -3,9 +3,9 @@ var Levels = {
   l01 : {
     next : 'l02',
     map : [
-      'P B .',
+      'P  B  .',
     ],
-    soundtrack : [1, 2, 3, 4],
+    soundtrack : [1, 2, 3, 4, 12],
   },
   
   l02 : {
@@ -45,7 +45,7 @@ var Levels = {
       '.s       ',
       '.s       ',
     ],
-    soundtrack : [0, 2, 8, 7],
+    soundtrack : [0, 11, 2, 8, 7],
   },
   
   l05 : {
@@ -88,7 +88,7 @@ var Levels = {
       '  B..B   ',
       '         ',
     ],
-    soundtrack : [7, 9, 0],
+    soundtrack : [7, 9, 0, 11],
   },
 
   l08 : {
@@ -107,7 +107,7 @@ var Levels = {
   },
 
   l09 : {
-    next : 'l09',
+    next : 'l10',
     map : [
       'X  C X',
       '      ',
@@ -117,6 +117,29 @@ var Levels = {
       'X    X',
     ],
     soundtrack : [10, 2, 1, 9, 4],
+  },
+
+  l10 : {
+    next : 'l10',
+    map : [
+      '                  ',
+      '      P           ',
+      '      B.B     XXX ',
+      '    B     B   X   ',
+      '    .     .   X XX',
+      '    B     B   X  C',
+      '    B  b  B   X  C',
+      '    .     .   X XX',
+      '    B     B   X   ',
+      '      B.B     XXX ',
+      '                  ',
+      '                  ',
+    ],
+    soundtrack : [11, 12, 3, 6],
+    onButton : function() {
+      Game.do.cleanAllCreep();
+    },
+    later : [5, 9, 8, 12, 7],
   },
 
 };
