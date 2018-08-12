@@ -18,6 +18,7 @@ var ThreeStage = {
       	var l = this.layers[name];
       	if(l) {
         	this.root.remove(l);
+          this.layers[name] = false;
         	return(true);
       	}
       	return(false);
@@ -250,12 +251,13 @@ var ThreeStage = {
           this.animation.commandList = this.animation.nextFrameCommandList;
           this.animation.nextFrameCommandList = [];
         }
+        var it = this;
         each(this.animation.list, function(f) {
           try {
             if(typeof f == 'function') {
               var r = f(deltaTime);
               if(r === false) {
-                this.animation.remove(f);
+                it.animation.remove(f);
               }
             }
           } catch(ee) {

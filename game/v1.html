@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>HTML/Canvas/3D Game Starter</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/hint.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <script src="lib/three.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/howler.min.js"></script>
+    <script src="lib/minibars.min.js"></script>
+    <script src="lib/u-pathastar.js"></script>
+    <script src="lib/u-threestage.js"></script>
+    <script src="lib/u-grid.js"></script>
+    <script src="lib/u-helper.js"></script>
+
+    <script src="js/sound.js"></script>
+    <script src="js/levels.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/gridmap3d.js"></script>
+  </head>
+  <body>
+    
+    <nav>
+      LD42
+    </nav>
+    
+    <div id="help">
+    
+      <div id="k_w"><div class="key">W</div><div class="explanation">Forward</div></div>
+      <div id="k_a"><div class="key">A</div><div class="explanation">Left</div></div>
+      <div id="k_s"><div class="key">S</div><div class="explanation">Back</div></div>
+      <div id="k_d"><div class="key">D</div><div class="explanation">Right</div></div>
+      <div id="k_f"><div class="key">F</div><div class="explanation">Undo</div></div>
+      <div id="k_r"><div class="key">R</div><div class="explanation">Reset</div></div>
+    
+    </div>
+
+    <footer>
+      <div id="frame-rate">0fps</div>
+    </footer>
+    
+    <div id="announcement">
+      TEST
+    </div>
+
+    <script>
+    $(function() {
+      frame_info_element = $('#frame-rate');
+      Stage = ThreeStage.create({
+        smoothScroll : 0.85,
+        draggable : true,
+      });
+      Stage.start();
+      Stage.on('frameinfo', function(inf) {       
+        frame_info_element.text('FPS:'+inf.fps+' CPU:'+inf.threadLoadPercent+'%');      
+      })
+      Stage.on('mousedown_right', function(m) {
+        if(stage.root.dragStart)
+          stage.root.dragStart();
+      });
+      Stage.on('mousemove', function(m) {    
+        if(m.rightButton) {
+          //if(Math.abs(m.xd) > 3 || Math.abs(m.yd) > 3) {
+            stage.panBy(m.xd, m.yd);
+          //}
+          return;
+        }    
+      });
+      $(document).on('keydown', Game.on.keydown);
+      $(document).on('keyup', Game.on.keyup);
+      Sound.init();
+      Game.init(Stage);
+    });
+    </script>
+    
+  </body>
+</html>
